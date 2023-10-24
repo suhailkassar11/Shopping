@@ -12,6 +12,7 @@ import ProductInfo from "./pages/productInfo/ProductInfo";
 import AddProduct from "./pages/admin/pages/AddProduct"
 import UpdateProducts from "./pages/admin/pages/UpdateProducts"
 import Allproducts from "./pages/allproducts/Allproducts";
+import UserDashboard from "./pages/admin/dashboard/userDashboard";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/order" element={<Order/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/userDashboard" element={<UserDashboard/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp  />} />
           <Route path="/productInfo" element={<ProductInfo/>} />

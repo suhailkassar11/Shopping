@@ -151,9 +151,11 @@ const Navbar = () => {
               <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                 Order
               </Link>
-              <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+            {auth?.user?.role==1?(<>  <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                 admin
-              </Link>
+              </Link></>):(<>  <Link to={'/userDashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                {auth?.user?.Name}
+              </Link></>)}
 
              {!auth.user?(<> <Link to={'/logIn'} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
                 Login/Register

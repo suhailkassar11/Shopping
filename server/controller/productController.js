@@ -56,7 +56,7 @@ export const CreateProductController=async(req,res)=>{
 
 export const GetProductController=async(req,res)=>{
     try {
-        const products=await Product.find({})
+        const products=await Product.find({}).sort({createdAt:-1})
         const total = await Product.countDocuments();
 
         res.status(200).send({

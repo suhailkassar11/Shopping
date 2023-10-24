@@ -15,19 +15,22 @@ const DashboardTab=()=> {
     const { mode } = context
     let [isOpen, setIsOpen] = useState(false)
     const [product,setProduct]=useState([])
-    const[id,setId]=useState("")
-    const[name,setName]=useState("")
-    const[brand,setBrand]=useState("")
-    const[gender,setGender]=useState("")
-    const[category,setCategory]=useState("")
-    const[price,setPrice]=useState()
-    const[items_left,setItems_Left]=useState("")
-
+    const [user,setUser]=useState([])
     const GetProduct=async()=>{
         try {
             const {data}=await axios.get(`http://localhost:5001/api/product/getProducts`)
             const products=data.products
             setProduct(products)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+    const GetUser=async()=>{
+        try {
+            const {data}=await axios.get(`http://localhost:5001/api/auth/getUser`)
+            const {users}=data
+            setUser(users)
         } catch (error) {
             console.log(error)
         }
@@ -45,6 +48,7 @@ const DashboardTab=()=> {
     };
     useEffect(()=>{
         GetProduct()
+        GetUser()
     },[])
 
 
@@ -62,6 +66,14 @@ const DashboardTab=()=> {
 
     function openModal() {
         setIsOpen(true)
+    }
+    const formatCreatedDate=(isoDate)=>{
+        const date=new Date(isoDate)
+        return date.toLocaleDateString()
+    }
+    const formatCreatedTime=(isTime)=>{
+        const  time= new Date(isTime)
+        return time.toLocaleTimeString()
     }
     return (
         <>
@@ -123,11 +135,12 @@ const DashboardTab=()=> {
                                                     Date
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
-                                                    Action
+                                                    Time
                                                 </th>
                                                 <th scope="col" className="px-6 py-3">
-                                                    id
+                                                    Action
                                                 </th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody className=''>
@@ -148,7 +161,10 @@ const DashboardTab=()=> {
                                                     {prod.category}
                                                 </td>
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    12 Aug 2019
+                                                    {formatCreatedDate(prod.createdAt)}
+                                                </td>
+                                                <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                                    {formatCreatedTime(prod.createdAt)}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className=" flex gap-2">
@@ -166,9 +182,7 @@ const DashboardTab=()=> {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {prod._id}
-                                                </td>
+                                               
                                             </tr>))}
 
                                         </tbody>
@@ -272,55 +286,49 @@ const DashboardTab=()=> {
                                     <thead className="text-xs text-black uppercase bg-gray-200 " style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
-                                                S.No
+                                                sr
                                             </th>
 
                                             <th scope="col" className="px-6 py-3">
                                                 Name
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Address
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Pincode
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Phone Number
-                                            </th>
+                                           
                                             <th scope="col" className="px-6 py-3">
                                                 Email
                                             </th>
                                             <th scope="col" className="px-6 py-3">
+                                                Role
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
                                                 Date
                                             </th>
+                                            <th scope="col" className="px-6 py-3">
+                                                Time
+                                            </th>
                                         </tr>
+                                      
                                     </thead>
                                     <tbody>
-                                      
-                                                <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        1.
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        Name
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        Address
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        181919
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        1991818818
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                       kkk@gmail.com
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        12 Aug 2019
-                                                    </td>
-
-                                                </tr>
+                                      {user.filter(u=>u.role!=1).map((u,i)=>(<tr key={i} className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                             {i+1}
+                                         </td>
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                             {u.Name}
+                                         </td>                                                
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                            {u.Email}
+                                         </td>
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                            {u.role}
+                                         </td>
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                             {formatCreatedDate(u.createdAt)}
+                                         </td>
+                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                             {formatCreatedTime(u.createdAt)}
+                                         </td>
+                                     </tr>))}
                                     </tbody>
                                 </table>
                             </div>

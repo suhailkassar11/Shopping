@@ -6,15 +6,17 @@ function Signup() {
     const [Name,setName]=useState("")
     const [Email,setEmail]=useState("")
     const [Password,setPassword]=useState("")
+    const [image,setImage]=useState(null)
     const navigate=useNavigate()
     const HandleSubmit=async(e)=>{
         e.preventDefault()
         try {
-            const res= await axios.post(`http://localhost:5001/api/auth/register`,{Name,Email,Password})
+            const res= await axios.post(`http://localhost:5001/api/auth/register`,{Name,Email,Password,image})
             if(res && res.data.success){
                 alert("register successfull")
                 navigate('/logIn')
             }
+            console.log(res.data)
         } catch (error) {
             console.log(error)
 
@@ -53,6 +55,15 @@ function Signup() {
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Password'
                             onChange={(e)=>setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="file"
+                            value={image}
+                            className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                            placeholder='photo'
+                            onChange={(e)=>setImage(e.target.value)}
                         />
                     </div>
                     <div className=' flex justify-center mb-3'>

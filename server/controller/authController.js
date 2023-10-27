@@ -1,4 +1,5 @@
 import {comparePassword, hashPassword } from "../helpers/authHelper.js";
+import fs from 'fs';
 import User from "../model/userModel.js";
 import JWT from 'jsonwebtoken';
 
@@ -6,6 +7,7 @@ export const RegisterController=async(req,res)=>{
     try {
 
         const {Name,Email,Password}= await req.body
+        const {image}=req.body
         if (!Name){
             return res.status(401).send({
                 message:"please enter name"
@@ -21,6 +23,8 @@ export const RegisterController=async(req,res)=>{
                 message:"please enter password"
             })
         }
+        if (image && image.size>1000000)
+            return res.status(500).send({error:"photo is required and should be less than 1 mb"})
 
         const existingUser=await User.findOne({Email})
         if(existingUser){
@@ -36,7 +40,13 @@ export const RegisterController=async(req,res)=>{
             Name,
             Email,
             Password:hashPass,
-        }).save()
+            image,
+        })
+        if(image){
+            user.image.data=fs.readFileSync(image.path)
+            user.photo.contentType=image.type
+        }
+        await user.save();
         res.status(201).send({
             success:true,
             message:"register successfully",

@@ -8,6 +8,10 @@ const userSchema=new mongoose.Schema({
         type:Number,
         default:0,
     },
+    image:{
+        data:Buffer,
+        contentType: String 
+    }
 }
 ,
 {

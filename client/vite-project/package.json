@@ -14,6 +14,8 @@
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.5.1",
+    "braintree-web-drop-in": "^1.40.2",
+    "braintree-web-drop-in-react": "^1.2.1",
     "browser-router": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

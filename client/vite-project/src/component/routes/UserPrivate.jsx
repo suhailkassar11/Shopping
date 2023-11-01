@@ -8,7 +8,7 @@ const UserPrivate = () => {
   
     useEffect(() => {
       const authCheck = async () => {
-        const res = await axios.get(`http://localhost:5001/api/auth/user-auth`);
+        const res = await axios.get(`${import.meta.env.VITE_APP_API}/api/auth/user-auth`);
         if (res.data.ok) {
           setOk(true);
         } else {

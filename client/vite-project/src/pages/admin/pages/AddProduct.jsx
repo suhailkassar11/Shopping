@@ -16,7 +16,7 @@ function AddProduct() {
     const CreateProduct=async(e)=>{
         e.preventDefault();
         try {
-            const res= await axios.post(`http://localhost:5001/api/product/createProducts`,{name,brand,gender,category,price,is_in_inventory,items_left,imageURL})
+            const res= await axios.post(`${import.meta.env.VITE_APP_API}/api/product/createProducts`,{name,brand,gender,category,price,is_in_inventory,items_left,imageURL})
             if(res && res.data.success){
                 alert("product create successfull")
                 navigate('/dashboard')

@@ -11,7 +11,7 @@ function Signup() {
     const HandleSubmit=async(e)=>{
         e.preventDefault()
         try {
-            const res= await axios.post(`http://localhost:5001/api/auth/register`,{Name,Email,Password,image})
+            const res= await axios.post(`${import.meta.env.VITE_APP_API}/api/auth/register`,{Name,Email,Password,image})
             if(res && res.data.success){
                 alert("register successfull")
                 navigate('/logIn')

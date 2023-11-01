@@ -8,7 +8,7 @@ const AdminPrivate = () => {
   
     useEffect(() => {
       const authCheck = async () => {
-        const res = await axios.get(`http://localhost:5001/api/auth/admin-auth`);
+        const res = await axios.get(`${import.meta.env.VITE_APP_API}/api/auth/admin-auth`);
         console.log(res.data)
         if (res.data.ok) {
           setOk(true);

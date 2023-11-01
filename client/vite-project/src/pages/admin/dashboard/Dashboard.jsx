@@ -12,7 +12,7 @@ function Dashboard() {
     const [totalUser,setTotalUser]=useState()
     const GetProduct=async()=>{
         try {
-            const {data}=await axios.get(`http://localhost:5001/api/product/getProducts`)
+            const {data}=await axios.get(`${import.meta.env.VITE_APP_API}/api/product/getProducts`)
             const total=data.total
             setTotalPro(total);
             
@@ -23,7 +23,7 @@ function Dashboard() {
     }
     const GetUser=async()=>{
         try {
-            const {data}=await axios.get(`http://localhost:5001/api/auth/getUser`)
+            const {data}=await axios.get(`${import.meta.env.VITE_APP_API}/api/auth/getUser`)
             const totalUsers=data.totalUsers
             setTotalUser(totalUsers)      
         } catch (error) {

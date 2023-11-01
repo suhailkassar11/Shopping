@@ -12,7 +12,7 @@ function Login() {
     const HandleSubmit=async(e)=>{
         try {
             e.preventDefault()
-            const res = await axios.post(`http://localhost:5001/api/auth/login`,{Email,Password})
+            const res = await axios.post(`${import.meta.env.VITE_APP_API}/api/auth/login`,{Email,Password})
             if(res && res.data.success){
                 alert(res.data.message)
                 setAuth({
